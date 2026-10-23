@@ -146,8 +146,8 @@ input{font:inherit}
 .pc:hover{border-color:var(--orange);transform:translateY(-2px)}
 .pc.out{opacity:.78}
 .pc.out:hover{border-color:transparent;transform:none}
-.tile{height:84px;border-radius:10px;background:var(--tint);display:grid;place-items:center;position:relative;color:var(--navy)}
-.tile svg{width:42px;height:42px}
+.tile{height:84px;border-radius:10px;background:var(--tint);display:grid;place-items:center;position:relative;color:var(--navy);overflow:hidden}
+.tile svg{width:42px;height:42px}.tile img{display:block;width:100%;height:100%;min-width:100%;min-height:100%;object-fit:cover;object-position:center;border-radius:inherit}
 .tag{position:absolute;top:6px;left:6px;font-size:11px;font-weight:700;padding:2px 7px;border-radius:6px;background:var(--orange);color:#fff;text-transform:uppercase;letter-spacing:.3px}
 .tag.low{background:#FFF1D6;color:#8A5A00}
 .tag.out{background:#E4E8F0;color:#566078}
@@ -170,8 +170,8 @@ input{font:inherit}
 /* ---------- Compra ---------- */
 .lines{display:flex;flex-direction:column;gap:10px;padding:14px 16px 0}
 .ln{background:var(--card);border-radius:14px;padding:10px;display:grid;grid-template-columns:54px minmax(0,1fr) auto;gap:10px;align-items:center}
-.ln .tile{height:54px;width:54px}
-.ln .tile svg{width:28px;height:28px}
+.ln .tile{height:54px;width:54px;overflow:hidden}
+.ln .tile svg{width:28px;height:28px}.ln .tile img{display:block;width:100%;height:100%;min-width:100%;min-height:100%;object-fit:cover;object-position:center;border-radius:inherit}
 .ln h4{margin:0;font-size:14px;font-weight:600;line-height:1.25}
 .ln p{margin:2px 0 0;color:var(--muted);font-size:13px}
 .ln .r{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
@@ -241,7 +241,7 @@ input{font:inherit}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
-<div class="views"><div class="seg" role="group" aria-label="Vista"><button type="button" class="on" data-a="view" data-id="full" aria-pressed="true">Prototipo y explicación</button><button type="button" data-a="view" data-id="solo" aria-pressed="false">Solo el prototipo</button></div></div>
+<div class="views"><div class="seg" role="group" aria-label="Vista"><button type="button" class="on" data-a="view" data-id="full" aria-pressed="true">Prototipo y explicación</button><button type="button" data-a="view" data-id="solo" aria-pressed="false">Prototipo</button></div></div>
 
 <div class="stage">
   <div>
@@ -353,6 +353,14 @@ input{font:inherit}
   function money(n){return '$'+n.toFixed(2);}
   function byId(id){for(var i=0;i<P.length;i++){if(P[i].id===id)return P[i];}}
   function catOf(id){for(var i=0;i<CATS.length;i++){if(CATS[i].id===id)return CATS[i];}}
+  var CATIMG={
+    herramientas:'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=500&q=80',
+    pintura:'https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=500&q=80',
+    electricidad:'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=500&q=80',
+    plomeria:'https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=500&q=80',
+    construccion:'https://images.unsplash.com/photo-1513467655676-561b7d489a88?auto=format&fit=crop&w=500&q=80'
+  };
+  function productImg(p){return '<img src="'+CATIMG[p.c]+'" alt="'+esc(p.n)+'" loading="lazy">';}
   function count(){var t=0;for(var k in S.cart)t+=S.cart[k];return t;}
   function subtotal(){var t=0;for(var k in S.cart)t+=byId(+k).p*S.cart[k];return t;}
   function shipping(){return S.delivery==='domicilio'?3:0;}
@@ -367,7 +375,7 @@ input{font:inherit}
     var q=S.cart[p.id]||0, out=p.s==='out';
     var tag = p.s==='sale'?'<span class="tag">Oferta -15%</span>':p.s==='low'?'<span class="tag low">Pocas unidades</span>':out?'<span class="tag out">Agotado</span>':'';
     var act = out?'<button class="btn btn-sm" type="button" disabled>Agotado</button>':q?stepper(p.id,q):'<button class="btn btn-accent btn-sm" type="button" data-a="add" data-id="'+p.id+'">Agregar</button>';
-    return '<div class="pc'+(out?' out':'')+'"><div class="tile">'+ic(catOf(p.c).icon)+tag+'</div><h4>'+esc(p.n)+'</h4><div class="price"><b>'+money(p.p)+'</b>'+(p.old?'<s>'+money(p.old)+'</s>':'')+'</div>'+act+'</div>';
+    return '<div class="pc'+(out?' out':'')+'"><div class="tile">'+productImg(p)+tag+'</div><h4>'+esc(p.n)+'</h4><div class="price"><b>'+money(p.p)+'</b>'+(p.old?'<s>'+money(p.old)+'</s>':'')+'</div>'+act+'</div>';
   }
   function filtered(){
     var q=S.q.trim().toLowerCase();
@@ -434,7 +442,7 @@ input{font:inherit}
       return head+'<div class="empty" style="padding-top:60px"><div class="ring">'+ic('cart')+'</div><h3>Tu carrito está vacío</h3><p>Agrega herramientas y materiales desde el catálogo para armar tu compra.</p><button class="btn btn-accent" type="button" data-a="go" data-s="catalog">Ver catálogo</button></div>';
     }
     var lines=Object.keys(S.cart).map(function(k){var p=byId(+k),q=S.cart[k];
-      return '<div class="ln"><div class="tile">'+ic(catOf(p.c).icon)+'</div><div><h4>'+esc(p.n)+'</h4><p>'+money(p.p)+' c/u</p></div><div class="r"><b>'+money(p.p*q)+'</b></div><div class="st">'+stepper(p.id,q)+'<button class="rm" type="button" data-a="del" data-id="'+p.id+'">'+ic('trash')+'Quitar</button></div></div>';}).join('');
+      return '<div class="ln"><div class="tile">'+productImg(p)+'</div><div><h4>'+esc(p.n)+'</h4><p>'+money(p.p)+' c/u</p></div><div class="r"><b>'+money(p.p*q)+'</b></div><div class="st">'+stepper(p.id,q)+'<button class="rm" type="button" data-a="del" data-id="'+p.id+'">'+ic('trash')+'Quitar</button></div></div>';}).join('');
     function opt(group,id,label,sub,right){var on=(group==='d'?S.delivery:S.pay)===id;return '<button class="opt'+(on?' on':'')+'" type="button" role="radio" aria-checked="'+on+'" data-a="'+(group==='d'?'dl':'py')+'" data-id="'+id+'"><i class="dot"></i><span>'+label+(sub?'<small>'+sub+'</small>':'')+'</span>'+(right?'<em>'+right+'</em>':'')+'</button>';}
     var iva=total()/1.13*0.13;
     return head+'<div class="lines">'+lines+'</div>'+
@@ -514,7 +522,11 @@ input{font:inherit}
         S.confirmedInfo={delivery:S.delivery,pay:({tarjeta:'Tarjeta',efectivo:'Efectivo',transferencia:'Transferencia'})[S.pay],total:money(total())};
         S.confirmed=true;S.cart={};render(false);break;
       case 'again':S.confirmed=false;go('catalog');break;
-      case 'reset':S=fresh();render(false);break;
+      case 'reset':
+        S=fresh();
+        document.body.classList.remove('view-solo');
+        document.querySelectorAll('.seg button').forEach(function(b){var on=b.getAttribute('data-id')==='full';b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);});
+        render(false);break;
       case 'st':
         if(id==='err'){S.email='carlos.mejia@correo.com';S.pass='clave-incorrecta';S.loginError=true;S.showPass=false;go('login');}
         if(id==='empty'){S.cart={};go('checkout');}
