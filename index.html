@@ -1,5 +1,5 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Ferretería El Tornillo</title>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body class="view-solo">
+<title>River Ferretería</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -7,19 +7,19 @@
 <style>
 /* Layout: teléfono interactivo a la izquierda, panel de pantallas/estados/decisiones UX a la derecha; en móvil se apilan. */
 :root{
-  --navy:#0B2A5B;
-  --navy-deep:#071C40;
-  --orange:#F47B20;
-  --orange-deep:#D9640E;
-  --paper:#F3F5F9;
+  --navy:#285943;
+  --navy-deep:#173B2B;
+  --orange:#B84735;
+  --orange-deep:#96392B;
+  --paper:#F4F0E6;
   --card:#FFFFFF;
-  --ink:#16213A;
-  --muted:#5E6B85;
-  --line:#DCE2EE;
-  --tint:#E6ECF7;
+  --ink:#26352D;
+  --muted:#68756B;
+  --line:#DCD7C9;
+  --tint:#E7E5D8;
   --ok:#1E8E5A;
   --err:#C62F2F;
-  --err-bg:#FDECEC;
+  --err-bg:#F9E8E4;
   --font-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
   --font-body:"Barlow",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
   color-scheme:light;
@@ -40,7 +40,7 @@ input{font:inherit}
 .phone{
   width:100%;max-width:392px;margin:0 auto;height:min(800px,calc(100svh - 32px));min-height:620px;
   background:var(--paper);border:9px solid var(--navy-deep);border-radius:38px;overflow:hidden;
-  display:flex;flex-direction:column;position:relative;box-shadow:0 18px 40px rgba(7,28,64,.25);
+  display:flex;flex-direction:column;position:relative;box-shadow:0 18px 40px rgba(23,59,43,.25);
 }
 .scr{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin}
 .dock{flex:none;background:var(--card);border-top:1px solid var(--line)}
@@ -241,7 +241,7 @@ input{font:inherit}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
-<div class="views"><div class="seg" role="group" aria-label="Vista"><button type="button" class="on" data-a="view" data-id="full" aria-pressed="true">Prototipo y explicación</button><button type="button" data-a="view" data-id="solo" aria-pressed="false">Prototipo</button></div></div>
+<div class="views"><div class="seg" role="group" aria-label="Vista"><button type="button" data-a="view" data-id="full" aria-pressed="false">Prototipo y explicación</button><button type="button" class="on" data-a="view" data-id="solo" aria-pressed="true">Prototipo</button></div></div>
 
 <div class="stage">
   <div>
@@ -254,7 +254,7 @@ input{font:inherit}
 
   <aside class="panel">
     <div>
-      <h1>Ferretería El Tornillo</h1>
+      <h1>River Ferretería</h1>
       <p class="lead">Prototipo navegable de la app. Toca dentro del teléfono para comprar de principio a fin, o salta a cualquier pantalla y estado desde aquí.</p>
     </div>
     <section>
@@ -346,7 +346,7 @@ input{font:inherit}
   var FEATURED = [5,1,9,14];
 
   var S;
-  function fresh(){return {screen:'login',email:'carlos.mejia@correo.com',pass:'ferre123',showPass:false,loginError:false,cat:'todas',price:'todos',q:'',cart:{},delivery:'retiro',pay:'tarjeta',confirmed:false};}
+  function fresh(){return {screen:'login',email:'luis.rivera@correo.com',pass:'ferre123',showPass:false,loginError:false,cat:'todas',price:'todos',q:'',cart:{},delivery:'retiro',pay:'tarjeta',confirmed:false};}
   S = fresh();
 
   var $scr = document.getElementById('scr'), $dock = document.getElementById('dock'), $toast = document.getElementById('toast');
@@ -404,7 +404,7 @@ input{font:inherit}
   /* ---- Pantallas ---- */
   function vLogin(){
     var bad=S.loginError;
-    return '<div class="login"><div class="top"><div class="logo"><i>'+ic('wrench')+'</i><b>Ferretería<br>El Tornillo</b></div><p>Todo para tu obra, en tu bolsillo.</p></div>'+
+    return '<div class="login"><div class="top"><div class="logo"><i>'+ic('wrench')+'</i><b>River<br>Ferretería</b></div><p>Todo para tu obra, en tu bolsillo.</p></div>'+
     '<form class="sheet" id="lf" novalidate><h2>Ingresa a tu cuenta</h2>'+
     (bad?'<div class="alert" role="alert">'+ic('alert')+'<span>Correo o contraseña incorrectos. Revisa tus datos e intenta de nuevo.</span></div>':'')+
     '<div class="field"><label for="em">Correo electrónico</label><div class="inp'+(bad?' bad':'')+'"><input id="em" type="email" autocomplete="email" value="'+esc(S.email)+'" inputmode="email"></div></div>'+
@@ -417,7 +417,7 @@ input{font:inherit}
     var cats=CATS.map(function(c){return '<button class="cat" type="button" data-a="cat" data-id="'+c.id+'"><i>'+ic(c.icon)+'</i>'+c.name+'</button>';}).join('')+
       '<button class="cat all" type="button" data-a="cat" data-id="todas"><i>'+ic('grid')+'</i>Ver todo</button>';
     var feat=FEATURED.map(function(id){return card(byId(id));}).join('');
-    return '<div class="hdr"><div class="l1"><h1><small>Hola, Carlos</small>¿Qué necesitas hoy?</h1><button class="ib" type="button" data-a="go" data-s="checkout" aria-label="Ver mi compra">'+ic('bag')+(count()?'<span class="badge" style="top:-4px;left:auto;right:-4px">'+count()+'</span>':'')+'</button></div>'+
+    return '<div class="hdr"><div class="l1"><h1><small>Hola, Luis</small>¿Qué necesitas hoy?</h1><button class="ib" type="button" data-a="go" data-s="checkout" aria-label="Ver mi compra">'+ic('bag')+(count()?'<span class="badge" style="top:-4px;left:auto;right:-4px">'+count()+'</span>':'')+'</button></div>'+
       '<form class="sbar" id="hs"><div class="inp">'+ic('search','si')+'<input id="hq" type="search" placeholder="Busca martillo, pintura, cable..." aria-label="Buscar productos"></div><button class="ib" style="background:var(--orange)" type="submit" aria-label="Buscar">'+ic('search')+'</button></form></div>'+
       '<div class="sec"><h3>Categorías</h3><div class="cats">'+cats+'</div></div>'+
       '<button class="promo" type="button" data-a="cat" data-id="pintura"><div><b>Semana de la pintura</b><span>Látex, brochas y rodillos</span></div><em>-15%</em></button>'+
@@ -524,11 +524,11 @@ input{font:inherit}
       case 'again':S.confirmed=false;go('catalog');break;
       case 'reset':
         S=fresh();
-        document.body.classList.remove('view-solo');
-        document.querySelectorAll('.seg button').forEach(function(b){var on=b.getAttribute('data-id')==='full';b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);});
+        document.body.classList.add('view-solo');
+        document.querySelectorAll('.seg button').forEach(function(b){var on=b.getAttribute('data-id')==='solo';b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);});
         render(false);break;
       case 'st':
-        if(id==='err'){S.email='carlos.mejia@correo.com';S.pass='clave-incorrecta';S.loginError=true;S.showPass=false;go('login');}
+        if(id==='err'){S.email='luis.rivera@correo.com';S.pass='clave-incorrecta';S.loginError=true;S.showPass=false;go('login');}
         if(id==='empty'){S.cart={};go('checkout');}
         if(id==='none'){S.cat='todas';S.price='todos';S.q='tuerca de titanio';go('catalog');}
         if(id==='out'){S.cat='electricidad';S.price='todos';S.q='';go('catalog');}
@@ -539,7 +539,7 @@ input{font:inherit}
     e.preventDefault();
     if(e.target.id==='lf'){
       S.email=document.getElementById('em').value.trim();S.pass=document.getElementById('pw').value;
-      var ok=/^\S+@\S+\.\S+$/.test(S.email)&&S.pass==='ferre123';
+      var ok=/^luis\.rivera@correo\.com$/i.test(S.email)&&S.pass==='ferre123';
       if(ok){S.loginError=false;go('home');}else{S.loginError=true;render(false);}
     }
     if(e.target.id==='hs'){S.q=document.getElementById('hq').value;S.cat='todas';S.price='todos';go('catalog');}
